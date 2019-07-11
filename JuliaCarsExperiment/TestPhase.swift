@@ -31,6 +31,7 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
     var arrow_view: UIImageView!
     var border_img: UIImageView!
     var final_data = ""
+    @IBOutlet weak var okBtn: UIButton!
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -70,15 +71,21 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
             }
         }
         perform(#selector(showCars), with: nil, afterDelay: 0.5)
+        view.isUserInteractionEnabled = true
+        perform(#selector(showButton), with: nil, afterDelay: 0.6)
         // no crowns will show for testing phase
         
-        view.isUserInteractionEnabled = true
 //        if selfPaced == false && curr <= 42 {
 //            startTimer()
 //        }
         
         //playClickSound()
         
+    }
+    
+    @objc func showButton() {
+        okBtn.isUserInteractionEnabled = true
+        okBtn.isHidden = false
     }
     
     @objc func showCars() {
@@ -130,33 +137,28 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
     
     @objc func handleTap(_ sender:UITapGestureRecognizer) {
         playClickSound()
+        let tap_loc = sender.location(in: view)
+        if tap_loc.x < UIScreen.main.bounds.width/2 {
+            arrow_view.frame = CGRect(x: 0.108*screenWidth, y: 0.05*screenHeight, width: 0.39*screenWidth, height: 0.39*screenHeight)
+            view.addSubview(arrow_view)
+            testTaps.append("1")
+        } else {
+            arrow_view.frame = CGRect(x: 0.57*screenWidth, y: 0.05*screenHeight, width: 0.39*screenWidth, height: 0.39*screenHeight)
+            view.addSubview(arrow_view)
+            testTaps.append("2")
+        }
+    }
+    
+    @IBAction func okBtnPressed(_ sender: Any) {
+        okBtn.isUserInteractionEnabled = false
+        okBtn.isHidden = true
         let num_tests : Int = 89
         if self.curr <= num_tests  {
             timer.invalidate()
             let end = Double(DispatchTime.now().uptimeNanoseconds)
             let diff = (end - start_time) / 1_000_000_000    //seconds elapsed
             testLengths.append(diff)
-//            var remainder = 0.0
-//            var num_overtimes = 1
-//            if timeLimit != 0.0 {
-//                remainder = diff.truncatingRemainder(dividingBy: timeLimit)
-//                num_overtimes = Int(((diff - remainder) / timeLimit).rounded())
-//            }
-//            for _ in 1...num_overtimes {
-//                testLengths.append(diff)
-//            }
-            //testLengths.append(remainder)
             
-            let tap_loc = sender.location(in: view)
-            if tap_loc.x < UIScreen.main.bounds.width/2 {
-                arrow_view.frame = CGRect(x: 0.108*screenWidth, y: 0.05*screenHeight, width: 0.39*screenWidth, height: 0.39*screenHeight)
-                view.addSubview(arrow_view)
-                testTaps.append("1")
-            } else {
-                arrow_view.frame = CGRect(x: 0.57*screenWidth, y: 0.05*screenHeight, width: 0.39*screenWidth, height: 0.39*screenHeight)
-                view.addSubview(arrow_view)
-                testTaps.append("2")
-            }
             if self.curr <= num_tests - 1 {
                 perform(#selector(showPair), with: nil, afterDelay: 1.5)
             }

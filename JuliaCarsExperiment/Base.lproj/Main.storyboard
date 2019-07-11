@@ -43,8 +43,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YdA-k7-ZNW">
-                                <rect key="frame" x="547" y="478" width="272" height="282"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YdA-k7-ZNW">
+                                <rect key="frame" x="547" y="600" width="272" height="282"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" button="YES" playsSound="YES"/>
                                 </accessibility>
@@ -59,6 +59,34 @@
                                     <action selector="startButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FdN-Nl-k5i"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Button Delay (ms)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iVU-RX-f0q">
+                                <rect key="frame" x="230" y="463" width="175" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Cars" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="at0-5l-ENZ">
+                                <rect key="frame" x="500" y="463" width="140" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Cars &amp; Crown" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NPP-Ab-g6e">
+                                <rect key="frame" x="728" y="462" width="140" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Between Trials" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qNf-CV-J0x">
+                                <rect key="frame" x="950" y="462" width="140" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.16862745098039217" green="0.16470588235294117" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -88,9 +116,13 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="btnDelayField" destination="iVU-RX-f0q" id="Ndh-EP-So4"/>
+                        <outlet property="carsCrownField" destination="NPP-Ab-g6e" id="LoB-V8-hEP"/>
+                        <outlet property="carsField" destination="at0-5l-ENZ" id="ssc-Vf-VzY"/>
                         <outlet property="idField" destination="r6W-ZS-yjD" id="Lcc-Q9-mwW"/>
                         <outlet property="mLabel" destination="69d-3w-dNq" id="fES-n9-BcM"/>
                         <outlet property="timeField" destination="MAZ-Hk-fFP" id="dJb-Zp-zvB"/>
+                        <outlet property="trialGapField" destination="qNf-CV-J0x" id="y7b-IX-bBg"/>
                         <segue destination="Hh1-9l-fLY" kind="show" identifier="start_experiment" id="fHa-px-7pH"/>
                     </connections>
                 </viewController>
@@ -109,6 +141,15 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="border.png" translatesAutoresizingMaskIntoConstraints="NO" id="otJ-XG-gpl">
                                 <rect key="frame" x="0.0" y="20" width="1366" height="1004"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PVE-y0-cNI">
+                                <rect key="frame" x="1161" y="907" width="164" height="84"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="OK"/>
+                                <connections>
+                                    <action selector="okBtnPressed:" destination="CQb-cM-hSb" eventType="touchUpInside" id="WIp-AT-NNZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -119,10 +160,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xOj-Zb-7rA"/>
                     </view>
+                    <connections>
+                        <outlet property="okBtn" destination="PVE-y0-cNI" id="XcV-eY-v9K"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Gr-u5-lmQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="813" y="2340"/>
+            <point key="canvasLocation" x="812.5915080527086" y="2339.6484375"/>
         </scene>
         <!--Demo Phase-->
         <scene sceneID="8I3-ox-cZd">
@@ -193,6 +237,15 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="border.png" translatesAutoresizingMaskIntoConstraints="NO" id="fbZ-aT-joy">
                                 <rect key="frame" x="0.0" y="20" width="1366" height="1004"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BlH-y0-zgW">
+                                <rect key="frame" x="1130" y="898" width="216" height="89"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="37"/>
+                                <state key="normal" title="Next"/>
+                                <connections>
+                                    <action selector="nextBtnPressed:" destination="bW2-AW-5qd" eventType="touchUpInside" id="YvM-3a-z5m"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -204,12 +257,13 @@
                         <viewLayoutGuide key="safeArea" id="nNs-Ra-s61"/>
                     </view>
                     <connections>
+                        <outlet property="nextBtn" destination="BlH-y0-zgW" id="X5E-gt-9Dq"/>
                         <segue destination="0qd-fX-00G" kind="show" identifier="second_demo" id="de9-Qy-6Jc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wgM-ES-3FA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="813" y="798"/>
+            <point key="canvasLocation" x="812.5915080527086" y="797.4609375"/>
         </scene>
     </scenes>
     <resources>

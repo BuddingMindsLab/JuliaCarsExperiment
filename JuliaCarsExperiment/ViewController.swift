@@ -16,6 +16,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var mLabel: UILabel!
     @IBOutlet weak var idField: UITextField!
     @IBOutlet weak var timeField: UITextField!
+    @IBOutlet weak var btnDelayField: UITextField!
+    @IBOutlet weak var carsField: UITextField!
+    @IBOutlet weak var carsCrownField: UITextField!
+    @IBOutlet weak var trialGapField: UITextField!
     
     // @IBOutlet weak var picker: UIPickerView!
     let groups = ["group10", "group1", "group2", "group3", "group4", "group5", "group6", "group7", "group8", "group9"]
@@ -109,6 +113,10 @@ class ViewController: UIViewController {
         if toggle == false {
             vc?.timeLimit = Double(timeField.text!)!
         }
+        if self.btnDelayField.text != nil && self.btnDelayField.text != ""{
+            vc?.buttonDelayAfterCrown = Double(self.btnDelayField.text!)!
+        }
+        
     }
     
 //    // picker methods

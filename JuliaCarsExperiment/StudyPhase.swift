@@ -25,6 +25,15 @@ class StudyPhase: UIViewController {
     let margin = UIScreen.main.bounds.width/20  // 5% of total width
     var border_img: UIImageView!
     var readyForDemo = false
+    @IBOutlet weak var nextBtn: UIButton!
+    var buttonDelayAfterCrown = 0.5
+    
+    // Fixed timing settings
+    var beforeCarsCrown_afterCars = 0.5
+    var beforeWhite_afterCarsCrown = 4.0
+    var beforeNextTrial_afterWhite = 0.5
+    
+    
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -33,14 +42,50 @@ class StudyPhase: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
-        leftSwipe.direction = .left
-        view.addGestureRecognizer(leftSwipe)
+//        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+//        leftSwipe.direction = .left
+//        view.addGestureRecognizer(leftSwipe)
         for v in view.subviews {
             v.removeFromSuperview()
         }
         perform(#selector(showWhite), with: nil, afterDelay: 0.5)
-        perform(#selector(showPair), with: nil, afterDelay: 0.7)
+        perform(#selector(performStudy), with: nil, afterDelay: 0.7)
+        //perform(#selector(showPair), with: nil, afterDelay: 0.7)
+    }
+    
+    @objc func clearScreen() {
+        for v in view.subviews {
+            if v.accessibilityIdentifier == nil {
+                v.removeFromSuperview()
+            }
+        }
+    }
+    
+    @objc func performStudy() {
+        if curr < 51 {
+            let timingType = Int(self.parsed_data[curr][0])!
+            if timingType == 11 {   // Fixed timing
+                exposureLengths.append(beforeWhite_afterCarsCrown)
+                view.isUserInteractionEnabled = false
+                clearScreen()
+                perform(#selector(showCars), with: nil, afterDelay: beforeNextTrial_afterWhite)
+                perform(#selector(showCrown), with: nil, afterDelay: beforeCarsCrown_afterCars + beforeNextTrial_afterWhite)
+                perform(#selector(clearScreen), with: nil, afterDelay: beforeWhite_afterCarsCrown + beforeCarsCrown_afterCars + beforeNextTrial_afterWhite)
+                perform(#selector(performStudy), with: nil, afterDelay: beforeWhite_afterCarsCrown + beforeCarsCrown_afterCars + beforeNextTrial_afterWhite)
+            } else if timingType == 12 {    // Participant can press Next to continue
+                perform(#selector(clearScreen), with: nil, afterDelay: 0)
+                perform(#selector(showCars), with: nil, afterDelay: 0.5)
+                perform(#selector(showCrown), with: nil, afterDelay: 1.0)
+                showButton()
+            }
+        } else {
+            curr += 1
+            perform(#selector(showStop), with: nil, afterDelay: 0)
+            perform(#selector(showGo), with: nil, afterDelay: 2)
+            if readyForDemo == true {
+                performSegue(withIdentifier: "second_demo", sender: StudyPhase.self)
+            }
+        }
     }
     
     @objc func showWhite() {
@@ -55,11 +100,7 @@ class StudyPhase: UIViewController {
     @objc func showPair() {
         // essentially the row numbers for <parsed_data>
         view.isUserInteractionEnabled = false
-        for v in view.subviews {
-            if v.accessibilityIdentifier == nil {
-                v.removeFromSuperview()
-            }
-        }
+        clearScreen()
         // page flip onto a white page with race track border
         perform(#selector(flip), with: nil, afterDelay: 0)
         perform(#selector(showCars), with: nil, afterDelay: 1)
@@ -86,7 +127,18 @@ class StudyPhase: UIViewController {
         curr += 1
     }
     
+    @objc func showButton() {
+        view.isUserInteractionEnabled = true
+        nextBtn.isHidden = false
+    }
+    
+    @objc func hideButton() {
+        view.isUserInteractionEnabled = false
+        nextBtn.isHidden = true
+    }
+    
     @objc func showCrown() {
+        perform(#selector(showButton), with: nil, afterDelay: buttonDelayAfterCrown)
         let winner = Int(parsed_data[curr-1][7])
         let crown_path = Bundle.main.path(forResource: "crown", ofType: "png")!
         let crown = UIImage(contentsOfFile: crown_path)
@@ -113,23 +165,12 @@ class StudyPhase: UIViewController {
         }
     }
     
-    @objc func handleSwipes(_ sender:UISwipeGestureRecognizer) {
-        if (sender.direction == .left) {
-            if self.curr <= 51 {
-                // record stop time
-                let end = Double(DispatchTime.now().uptimeNanoseconds)
-                exposureLengths.append((end - start_time) / 1_000_000_000)    //seconds elapsed
-                if self.curr <= 50 {
-                    showPair()
-                }
-            }
-            if self.curr == 51 {
-                curr += 1
-                perform(#selector(showStop), with: nil, afterDelay: 0)
-            } else if readyForDemo == true {
-                performSegue(withIdentifier: "second_demo", sender: StudyPhase.self)
-            }
-        }
+    @IBAction func nextBtnPressed(_ sender: Any) {
+        hideButton()
+        // record stop time
+        let end = Double(DispatchTime.now().uptimeNanoseconds)
+        exposureLengths.append((end - start_time) / 1_000_000_000)    //seconds elapsed
+        performStudy()
     }
     
     @objc func handleTaps(_ sender:UITapGestureRecognizer) {
@@ -174,6 +215,7 @@ class StudyPhase: UIViewController {
         light_view.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
         view.addSubview(light_view)
         readyForDemo = true
+        performStudy()      // last call, performs segue to second demo phase
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

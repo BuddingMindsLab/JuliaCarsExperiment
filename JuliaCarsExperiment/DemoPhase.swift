@@ -28,6 +28,12 @@ class DemoPhase: UIViewController {
     
     var count = 0
     
+    var buttonDelayAfterCrown = 0.5
+    // Fixed timing settings
+    var beforeCarsCrown_afterCars = 0.5
+    var beforeWhite_afterCarsCrown = 4.0
+    var beforeNextTrial_afterWhite = 0.5
+    
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -163,5 +169,10 @@ class DemoPhase: UIViewController {
         vc?.parsed_data = self.parsed_data
         vc?.timeLimit = self.timeLimit
         vc?.group_name = self.group_name
+        vc?.buttonDelayAfterCrown = self.buttonDelayAfterCrown
+        // Fixed timing settings
+        vc?.beforeCarsCrown_afterCars = self.beforeCarsCrown_afterCars
+        vc?.beforeWhite_afterCarsCrown = self.beforeWhite_afterCarsCrown
+        vc?.beforeNextTrial_afterWhite = self.beforeNextTrial_afterWhite
     }
 }

@@ -16,7 +16,8 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
     var selfPaced = true
     var parsed_data = [[String]]()
     var player = AVAudioPlayer()
-    var curr = 53
+    var test_start = 53
+    var curr = 0
     var start_time = 0.0
     var studyLengths = [Double]()
     var testLengths = [Double]()
@@ -37,7 +38,7 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        curr = test_start
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         view.addGestureRecognizer(tap)
         setupArrow()
@@ -129,7 +130,8 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
     
     @objc func handleTap(_ sender:UITapGestureRecognizer) {
         playClickSound()
-        if self.curr <= 89  {
+        let num_tests : Int = 89
+        if self.curr <= num_tests  {
             timer.invalidate()
             let end = Double(DispatchTime.now().uptimeNanoseconds)
             let diff = (end - start_time) / 1_000_000_000    //seconds elapsed
@@ -155,11 +157,11 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
                 view.addSubview(arrow_view)
                 testTaps.append("2")
             }
-            if self.curr <= 88 {
+            if self.curr <= num_tests - 1 {
                 perform(#selector(showPair), with: nil, afterDelay: 1.5)
             }
         }
-        if self.curr == 89 {
+        if self.curr == num_tests {
             final_data = format_final_data()
             saveData(data: final_data, fileName: subjID)
             showStop()
@@ -182,23 +184,28 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
     }
     
     func format_final_data() -> String {
-        var data = ""
-        
-        data += "Subject Number,phase,videoorimage,repnr,pairtype,leftcolour,rightcolour,winnerlr,leftim,rightim,response,Reaction Time (ms)\n"
+        var data =  "phase,videoorimage,repnr,pairtype,distance,leftcolour,rightcolour,winnerlr,leftim,rightim,response,Reaction Time (ms)\n"
+
         // practice phase 1
         for row in 1...2 {
-            data += subjID + ","
+//            data += subjID + ","
             let row_length = parsed_data[row].count
             for i in 0..<row_length {
                 data += parsed_data[row][i] + ","
+            }
+            
+            // Need to add nan as first row is a video file, so rightim is nan
+            if row == 1 {
+                data += "nan,"
             }
             data += "nan,nan\n"
         }
         
         // study phase
         for study in 0..<studyLengths.count {
-            data += subjID + ","
-            for col in 0...8 {
+//            data += subjID + ","
+            let row_length = parsed_data[study+3].count
+            for col in 0..<row_length {
                 data += parsed_data[study+3][col] + ","
             }
             data += "nan,"
@@ -207,25 +214,29 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
         
         // practice phase 2
         for row in 51...52 {
-            data += subjID + ","
+//            data += subjID + ","
             let row_length = parsed_data[row].count
             for i in 0..<row_length {
                 data += parsed_data[row][i] + ","
             }
+            // Need to add nan as first row is a video file, so rightim is nan
+            if row == 51 {
+                data += "nan,"
+            }
             data += "nan,nan\n"
         }
-        
+
         // test phase
         let upperbound = min(testTaps.count, testLengths.count)
         for test in 0..<upperbound {
-            data += subjID + ","
-            for col in 0...8 {
-                data += parsed_data[test+53][col] + ","
+//            data += subjID + ","
+            let row_length = parsed_data[test+test_start].count
+            for col in 0..<row_length {
+                data += parsed_data[test+test_start][col] + ","
             }
             data += testTaps[test] + ","
             data += String(testLengths[test]) + "\n"
         }
-        print(data)
         return data
     }
     
@@ -255,7 +266,7 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
 //        for i in 0..<upperbound {
 //            testlens += testTaps[i] + "," + String(testLengths[i]) + ","
 //        }
-        
+            
         // create excel file
         let fileName = subjID + ".csv"
         let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)

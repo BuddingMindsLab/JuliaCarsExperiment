@@ -12,10 +12,7 @@ import AVFoundation
 class ViewController: UIViewController {
     
     
-
-    @IBOutlet weak var mLabel: UILabel!
     @IBOutlet weak var idField: UITextField!
-    @IBOutlet weak var timeField: UITextField!
     @IBOutlet weak var btnDelayField: UITextField!
     @IBOutlet weak var carsField: UITextField!
     @IBOutlet weak var carsCrownField: UITextField!
@@ -46,16 +43,16 @@ class ViewController: UIViewController {
     }
     
     // called when toggle's value changes, default is <on>
-    @IBAction func selfPaceToggle(_ sender: Any) {
-        
-        if self.toggle == true {
-            self.toggle = false
-            timeField.isEnabled = true
-        } else {
-            self.toggle = true
-            timeField.isEnabled = false
-        }
-    }
+//    @IBAction func selfPaceToggle(_ sender: Any) {
+//
+//        if self.toggle == true {
+//            self.toggle = false
+//            timeField.isEnabled = true
+//        } else {
+//            self.toggle = true
+//            timeField.isEnabled = false
+//        }
+//    }
     var seq = ""
     var toggle = true
     var group_data = ""
@@ -111,9 +108,6 @@ class ViewController: UIViewController {
         vc?.selfPaced = self.toggle
         vc?.data = self.group_data
         vc?.group_name = group_name
-        if toggle == false {
-            vc?.timeLimit = Double(timeField.text!)!
-        }
         if self.btnDelayField.text != nil && self.btnDelayField.text != ""{
             vc?.buttonDelayAfterCrown = Double(self.btnDelayField.text!)!
         }

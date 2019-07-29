@@ -18,7 +18,6 @@ class StudyPhase: UIViewController {
     var curr = 3
     var start_time = 0.0
     var exposureLengths = [Double]()
-    var timeLimit = 0.0
     var group_name = ""
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
@@ -224,7 +223,6 @@ class StudyPhase: UIViewController {
         vc?.selfPaced = self.selfPaced
         vc?.parsed_data = self.parsed_data
         vc?.studyLengths = self.exposureLengths
-        vc?.timeLimit = self.timeLimit
         vc?.group_name = self.group_name
     }
 }

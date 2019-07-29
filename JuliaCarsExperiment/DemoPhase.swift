@@ -17,7 +17,6 @@ class DemoPhase: UIViewController {
     var data = ""
     var parsed_data = [[String]]()
     var player = AVAudioPlayer()
-    var timeLimit = 0.0
     var group_name = ""
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
@@ -168,7 +167,6 @@ class DemoPhase: UIViewController {
         vc?.selfPaced = self.selfPaced
         vc?.subjID = self.subjID
         vc?.parsed_data = self.parsed_data
-        vc?.timeLimit = self.timeLimit
         vc?.group_name = self.group_name
         vc?.buttonDelayAfterCrown = self.buttonDelayAfterCrown
         // Fixed timing settings

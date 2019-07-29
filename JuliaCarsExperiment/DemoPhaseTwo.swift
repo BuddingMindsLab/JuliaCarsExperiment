@@ -16,7 +16,6 @@ class DemoPhaseTwo: UIViewController {
     var selfPaced = true
     var parsed_data = [[String]]()
     var studyLengths = [Double]()
-    var timeLimit = 0.0
     var group_name = ""
     var arrow_view = UIImageView()
     
@@ -189,7 +188,6 @@ class DemoPhaseTwo: UIViewController {
         vc?.selfPaced = self.selfPaced
         vc?.parsed_data = self.parsed_data
         vc?.studyLengths = self.studyLengths
-        vc?.timeLimit = self.timeLimit
         vc?.group_name = self.group_name
     }
 

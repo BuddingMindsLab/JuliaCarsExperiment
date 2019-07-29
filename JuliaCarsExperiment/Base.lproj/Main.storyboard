@@ -18,27 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Self-paced" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="69d-3w-dNq">
-                                <rect key="frame" x="635" y="221" width="96.5" height="24"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Subject ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r6W-ZS-yjD">
+                            <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Subject ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r6W-ZS-yjD">
                                 <rect key="frame" x="639" y="368" width="88" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TUD-Lu-q0v">
-                                <rect key="frame" x="658.5" y="266" width="51" height="31"/>
-                                <color key="onTintColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <action selector="selfPaceToggle:" destination="BYZ-38-t0r" eventType="valueChanged" id="S5R-Zq-Gwl"/>
-                                </connections>
-                            </switch>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Testing Time (s)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MAZ-Hk-fFP">
-                                <rect key="frame" x="620.5" y="138" width="125" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -78,7 +59,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YdA-k7-ZNW">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YdA-k7-ZNW">
                                 <rect key="frame" x="547" y="675" width="272" height="282"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" button="YES" playsSound="YES"/>
@@ -98,25 +79,7 @@
                         <color key="backgroundColor" red="0.16862745098039217" green="0.16470588235294117" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="YdA-k7-ZNW" firstAttribute="top" secondItem="r6W-ZS-yjD" secondAttribute="bottom" constant="80" id="0KN-qw-PQU"/>
-                            <constraint firstItem="TUD-Lu-q0v" firstAttribute="centerX" secondItem="MAZ-Hk-fFP" secondAttribute="centerX" id="3z3-j3-Be6"/>
-                            <constraint firstItem="69d-3w-dNq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8k0-lf-d7i"/>
-                            <constraint firstItem="TUD-Lu-q0v" firstAttribute="top" secondItem="69d-3w-dNq" secondAttribute="bottom" constant="21" id="Duu-oZ-fvm"/>
-                            <constraint firstItem="r6W-ZS-yjD" firstAttribute="centerX" secondItem="MAZ-Hk-fFP" secondAttribute="centerX" id="ESd-GY-CfY"/>
                             <constraint firstItem="YdA-k7-ZNW" firstAttribute="top" secondItem="r6W-ZS-yjD" secondAttribute="bottom" constant="80" id="Glp-7g-1T6"/>
-                            <constraint firstItem="YdA-k7-ZNW" firstAttribute="centerX" secondItem="MAZ-Hk-fFP" secondAttribute="centerX" id="I1h-Tp-OXr"/>
-                            <constraint firstItem="TUD-Lu-q0v" firstAttribute="top" secondItem="69d-3w-dNq" secondAttribute="bottom" constant="21" id="JOe-Mt-vn5"/>
-                            <constraint firstItem="TUD-Lu-q0v" firstAttribute="centerX" secondItem="MAZ-Hk-fFP" secondAttribute="centerX" id="Obk-mt-s4V"/>
-                            <constraint firstItem="TUD-Lu-q0v" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="U5b-n6-IRN"/>
-                            <constraint firstItem="69d-3w-dNq" firstAttribute="top" secondItem="MAZ-Hk-fFP" secondAttribute="bottom" constant="53" id="VIu-3Z-bdW"/>
-                            <constraint firstItem="r6W-ZS-yjD" firstAttribute="top" secondItem="TUD-Lu-q0v" secondAttribute="bottom" constant="71" id="WfW-bI-fvj"/>
-                            <constraint firstItem="r6W-ZS-yjD" firstAttribute="top" secondItem="TUD-Lu-q0v" secondAttribute="bottom" constant="71" id="aZj-r0-r72"/>
-                            <constraint firstItem="MAZ-Hk-fFP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="118" id="dp1-QE-tU0"/>
-                            <constraint firstItem="69d-3w-dNq" firstAttribute="top" secondItem="MAZ-Hk-fFP" secondAttribute="bottom" constant="53" id="eJA-31-OVS"/>
-                            <constraint firstItem="YdA-k7-ZNW" firstAttribute="centerX" secondItem="MAZ-Hk-fFP" secondAttribute="centerX" id="h3o-rg-DB3"/>
-                            <constraint firstItem="MAZ-Hk-fFP" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hwU-mf-5wb"/>
-                            <constraint firstItem="69d-3w-dNq" firstAttribute="centerX" secondItem="MAZ-Hk-fFP" secondAttribute="centerX" id="psF-4S-cVt"/>
-                            <constraint firstItem="r6W-ZS-yjD" firstAttribute="centerX" secondItem="MAZ-Hk-fFP" secondAttribute="centerX" id="sn8-pI-PFN"/>
-                            <constraint firstItem="69d-3w-dNq" firstAttribute="centerX" secondItem="MAZ-Hk-fFP" secondAttribute="centerX" id="tm7-n3-Tlf"/>
                             <constraint firstItem="YdA-k7-ZNW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xHD-AR-zof"/>
                             <constraint firstItem="r6W-ZS-yjD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zqN-hg-7iL"/>
                         </constraints>
@@ -127,9 +90,7 @@
                         <outlet property="carsCrownField" destination="NPP-Ab-g6e" id="LoB-V8-hEP"/>
                         <outlet property="carsField" destination="at0-5l-ENZ" id="ssc-Vf-VzY"/>
                         <outlet property="idField" destination="r6W-ZS-yjD" id="Lcc-Q9-mwW"/>
-                        <outlet property="mLabel" destination="69d-3w-dNq" id="fES-n9-BcM"/>
                         <outlet property="maxStimuli" destination="RI9-bm-NFe" id="4Y0-vf-hjX"/>
-                        <outlet property="timeField" destination="MAZ-Hk-fFP" id="dJb-Zp-zvB"/>
                         <outlet property="trialGapField" destination="qNf-CV-J0x" id="y7b-IX-bBg"/>
                         <segue destination="Hh1-9l-fLY" kind="show" identifier="start_experiment" id="fHa-px-7pH"/>
                     </connections>

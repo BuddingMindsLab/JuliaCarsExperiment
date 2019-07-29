@@ -22,7 +22,6 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
     var studyLengths = [Double]()
     var testLengths = [Double]()
     var testTaps = [String]()
-    var timeLimit = 0.0
     var timer = Timer()
     var group_name = ""
     let screenWidth = UIScreen.main.bounds.width

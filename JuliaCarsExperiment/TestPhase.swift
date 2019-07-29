@@ -31,6 +31,9 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
     var arrow_view: UIImageView!
     var border_img: UIImageView!
     var final_data = ""
+    var thisTap = ""
+    var thisAnswer = ""
+    var correctCounter = 14
     @IBOutlet weak var okBtn: UIButton!
     
     override var prefersStatusBarHidden: Bool {
@@ -60,6 +63,7 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
         let arrow_path = Bundle.main.path(forResource: "arrow", ofType: "png")!
         let arrow_img = UIImage(contentsOfFile: arrow_path)
         arrow_view = UIImageView(image: arrow_img!)
+        arrow_view.accessibilityIdentifier = "arrow"
     }
     
     @objc func showPair() {
@@ -105,6 +109,7 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
         //usleep(500000)
         view.addSubview(left_car)
         view.addSubview(right_car)
+        thisAnswer = parsed_data[curr][7]
         // record start time
         start_time = Double(DispatchTime.now().uptimeNanoseconds)
         curr += 1
@@ -137,15 +142,20 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
     
     @objc func handleTap(_ sender:UITapGestureRecognizer) {
         playClickSound()
+        for v in view.subviews {
+            if v.accessibilityIdentifier == "arrow" {
+                v.removeFromSuperview()
+            }
+        }
         let tap_loc = sender.location(in: view)
         if tap_loc.x < UIScreen.main.bounds.width/2 {
             arrow_view.frame = CGRect(x: 0.108*screenWidth, y: 0.05*screenHeight, width: 0.39*screenWidth, height: 0.39*screenHeight)
             view.addSubview(arrow_view)
-            testTaps.append("1")
+            thisTap = "1"
         } else {
             arrow_view.frame = CGRect(x: 0.57*screenWidth, y: 0.05*screenHeight, width: 0.39*screenWidth, height: 0.39*screenHeight)
             view.addSubview(arrow_view)
-            testTaps.append("2")
+            thisTap = "2"
         }
     }
     
@@ -153,12 +163,20 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
         okBtn.isUserInteractionEnabled = false
         okBtn.isHidden = true
         let num_tests : Int = 89
+        timer.invalidate()
+        let end = Double(DispatchTime.now().uptimeNanoseconds)
+        let diff = (end - start_time) / 1_000_000_000    //seconds elapsed
+        testLengths.append(diff)
+        
+        if thisAnswer == thisTap {
+            correctCounter += 1
+            playSound()
+            showCorrect()
+        } else {
+            showWrong()
+        }
+        
         if self.curr <= num_tests  {
-            timer.invalidate()
-            let end = Double(DispatchTime.now().uptimeNanoseconds)
-            let diff = (end - start_time) / 1_000_000_000    //seconds elapsed
-            testLengths.append(diff)
-            
             if self.curr <= num_tests - 1 {
                 perform(#selector(showPair), with: nil, afterDelay: 1.5)
             }
@@ -170,6 +188,24 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
             // email results
             perform(#selector(sendEmail), with: nil, afterDelay: 3)
         }
+    }
+    
+    func showCorrect() {
+        let stop_path = Bundle.main.path(forResource: "check", ofType: "png")!
+        let stop_img = UIImage(contentsOfFile: stop_path)
+        let stop_view = UIImageView(image: stop_img!)
+        stop_view.frame = CGRect(x: 0, y: 0, width: 120, height: 100)
+        stop_view.center = CGPoint(x: screenWidth/2, y: screenHeight/2)
+        view.addSubview(stop_view)
+    }
+    
+    func showWrong() {
+        let stop_path = Bundle.main.path(forResource: "cross", ofType: "png")!
+        let stop_img = UIImage(contentsOfFile: stop_path)
+        let stop_view = UIImageView(image: stop_img!)
+        stop_view.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        stop_view.center = CGPoint(x: screenWidth/2, y: screenHeight/2)
+        view.addSubview(stop_view)
     }
     
     @objc func showStop() {

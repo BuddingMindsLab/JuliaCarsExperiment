@@ -184,10 +184,27 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
         if self.curr == num_tests {
             final_data = format_final_data()
             saveData(data: final_data, fileName: subjID)
-            showStop()
+            perform(#selector(showStop), with: nil, afterDelay: 0)
+            if correctCounter >= 30 {
+                perform(#selector(showWinner), with: nil, afterDelay: 2)
+            }
             // email results
-            perform(#selector(sendEmail), with: nil, afterDelay: 3)
+            perform(#selector(sendEmail), with: nil, afterDelay: 8)
         }
+    }
+    
+    @objc func showWinner() {
+        for v in view.subviews {
+            if v.accessibilityIdentifier == nil {
+                v.removeFromSuperview()
+            }
+        }
+        let stop_path = Bundle.main.path(forResource: "winner", ofType: "png")!
+        let stop_img = UIImage(contentsOfFile: stop_path)
+        let stop_view = UIImageView(image: stop_img!)
+        stop_view.frame = CGRect(x: 0, y: 0, width: 100, height: 130)
+        stop_view.center = CGPoint(x: screenWidth/2, y: screenHeight/2)
+        view.addSubview(stop_view)
     }
     
     func showCorrect() {

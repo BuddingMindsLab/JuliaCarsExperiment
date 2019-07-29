@@ -114,6 +114,15 @@ class ViewController: UIViewController {
         if self.maxStimuli.text != nil && self.maxStimuli.text != "" {
             vc?.maxStimuli = Int(self.maxStimuli.text!)!
         }
+        if self.carsField.text != nil && self.carsField.text != "" {
+            vc?.beforeCarsCrown_afterCars = Double(self.carsField.text!)!
+        }
+        if self.carsCrownField.text != nil && self.carsCrownField.text != "" {
+            vc?.beforeWhite_afterCarsCrown = Double(self.carsCrownField.text!)!
+        }
+        if self.trialGapField.text != nil && self.trialGapField.text != "" {
+            vc?.beforeNextTrial_afterWhite = Double(self.trialGapField.text!)!
+        }
     }
     
 //    // picker methods

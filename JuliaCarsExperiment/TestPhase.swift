@@ -77,14 +77,6 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
         perform(#selector(showCars), with: nil, afterDelay: 0.5)
         view.isUserInteractionEnabled = true
         perform(#selector(showButton), with: nil, afterDelay: 0.6)
-        // no crowns will show for testing phase
-        
-//        if selfPaced == false && curr <= 42 {
-//            startTimer()
-//        }
-        
-        //playClickSound()
-        
     }
     
     @objc func showButton() {
@@ -113,6 +105,27 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
         // record start time
         start_time = Double(DispatchTime.now().uptimeNanoseconds)
         curr += 1
+    }
+    
+    @objc func showCrown() {
+        for v in view.subviews {
+            if v.accessibilityIdentifier == "feedback" {
+                v.removeFromSuperview()
+            }
+        }
+        let winner = Int(thisAnswer)
+        let crown_path = Bundle.main.path(forResource: "crown", ofType: "png")!
+        let crown = UIImage(contentsOfFile: crown_path)
+        let crown_view = UIImageView(image: crown!)
+        // left car wins
+        if winner == 1 {
+            crown_view.frame = CGRect(x: 0.071*screenWidth, y: 0.05*screenHeight, width: 0.39*screenWidth, height: 0.39*screenHeight)
+        } else {
+            crown_view.frame = CGRect(x: 0.56*screenWidth, y: 0.05*screenHeight, width: 0.39*screenWidth, height: 0.39*screenHeight)
+        }
+        view.addSubview(crown_view)
+        // record start time
+        start_time = Double(DispatchTime.now().uptimeNanoseconds)
     }
     
     func playSound() {
@@ -172,24 +185,25 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
             correctCounter += 1
             playSound()
             showCorrect()
+            perform(#selector(showCrown), with: nil, afterDelay: 2)
         } else {
             showWrong()
         }
         
         if self.curr <= num_tests  {
             if self.curr <= num_tests - 1 {
-                perform(#selector(showPair), with: nil, afterDelay: 1.5)
+                perform(#selector(showPair), with: nil, afterDelay: 3.5)
             }
         }
         if self.curr == num_tests {
             final_data = format_final_data()
             saveData(data: final_data, fileName: subjID)
-            perform(#selector(showStop), with: nil, afterDelay: 0)
+            perform(#selector(showStop), with: nil, afterDelay: 2)
             if correctCounter >= 30 {
-                perform(#selector(showWinner), with: nil, afterDelay: 2)
+                perform(#selector(showWinner), with: nil, afterDelay: 4)
             }
             // email results
-            perform(#selector(sendEmail), with: nil, afterDelay: 8)
+            perform(#selector(sendEmail), with: nil, afterDelay: 10)
         }
     }
     
@@ -213,6 +227,7 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
         let stop_view = UIImageView(image: stop_img!)
         stop_view.frame = CGRect(x: 0, y: 0, width: 120, height: 100)
         stop_view.center = CGPoint(x: screenWidth/2, y: screenHeight/2)
+        stop_view.accessibilityIdentifier = "feedback"
         view.addSubview(stop_view)
     }
     
@@ -222,6 +237,7 @@ class TestPhase: UIViewController, MFMailComposeViewControllerDelegate {
         let stop_view = UIImageView(image: stop_img!)
         stop_view.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         stop_view.center = CGPoint(x: screenWidth/2, y: screenHeight/2)
+        stop_view.accessibilityIdentifier = "feedback"
         view.addSubview(stop_view)
     }
     

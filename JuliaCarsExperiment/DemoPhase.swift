@@ -33,6 +33,7 @@ class DemoPhase: UIViewController {
     var beforeCarsCrown_afterCars = 0.5
     var beforeWhite_afterCarsCrown = 4.0
     var beforeNextTrial_afterWhite = 0.5
+    var maxStimuli = 51
     
     override var prefersStatusBarHidden: Bool {
         return true

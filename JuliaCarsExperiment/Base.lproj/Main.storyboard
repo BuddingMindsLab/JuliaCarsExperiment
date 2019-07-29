@@ -43,22 +43,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YdA-k7-ZNW">
-                                <rect key="frame" x="547" y="600" width="272" height="282"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" button="YES" playsSound="YES"/>
-                                </accessibility>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="282" id="NOL-Kp-gpA"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="282" id="S32-vG-kEf"/>
-                                    <constraint firstAttribute="width" constant="272" id="kxT-mq-JkS"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="272" id="teW-C4-Qfs"/>
-                                </constraints>
-                                <state key="normal" title="Start Experiment" image="button.png"/>
-                                <connections>
-                                    <action selector="startButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FdN-Nl-k5i"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Button Delay (ms)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iVU-RX-f0q">
                                 <rect key="frame" x="230" y="463" width="175" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -87,6 +71,29 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Max stimuli" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RI9-bm-NFe">
+                                <rect key="frame" x="635" y="573" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YdA-k7-ZNW">
+                                <rect key="frame" x="547" y="675" width="272" height="282"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" button="YES" playsSound="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="282" id="NOL-Kp-gpA"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="282" id="S32-vG-kEf"/>
+                                    <constraint firstAttribute="width" constant="272" id="kxT-mq-JkS"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="272" id="teW-C4-Qfs"/>
+                                </constraints>
+                                <state key="normal" title="Start Experiment" image="button.png"/>
+                                <connections>
+                                    <action selector="startButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FdN-Nl-k5i"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.16862745098039217" green="0.16470588235294117" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -121,6 +128,7 @@
                         <outlet property="carsField" destination="at0-5l-ENZ" id="ssc-Vf-VzY"/>
                         <outlet property="idField" destination="r6W-ZS-yjD" id="Lcc-Q9-mwW"/>
                         <outlet property="mLabel" destination="69d-3w-dNq" id="fES-n9-BcM"/>
+                        <outlet property="maxStimuli" destination="RI9-bm-NFe" id="4Y0-vf-hjX"/>
                         <outlet property="timeField" destination="MAZ-Hk-fFP" id="dJb-Zp-zvB"/>
                         <outlet property="trialGapField" destination="qNf-CV-J0x" id="y7b-IX-bBg"/>
                         <segue destination="Hh1-9l-fLY" kind="show" identifier="start_experiment" id="fHa-px-7pH"/>

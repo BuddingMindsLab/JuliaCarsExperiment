@@ -32,7 +32,7 @@ class StudyPhase: UIViewController {
     var beforeCarsCrown_afterCars = 0.5
     var beforeWhite_afterCarsCrown = 4.0
     var beforeNextTrial_afterWhite = 0.5
-    
+    var maxStimuli = 51
     
     
     override var prefersStatusBarHidden: Bool {
@@ -62,9 +62,9 @@ class StudyPhase: UIViewController {
     }
     
     @objc func performStudy() {
-        if curr < 51 {
+        if curr < maxStimuli {
             let timingType = Int(self.parsed_data[curr][0])!
-            if timingType == 11 {   // Fixed timing
+            if timingType == 1 {   // Fixed timing
                 exposureLengths.append(beforeWhite_afterCarsCrown)
                 view.isUserInteractionEnabled = false
                 clearScreen()
@@ -72,7 +72,7 @@ class StudyPhase: UIViewController {
                 perform(#selector(showCrown), with: nil, afterDelay: beforeCarsCrown_afterCars + beforeNextTrial_afterWhite)
                 perform(#selector(clearScreen), with: nil, afterDelay: beforeWhite_afterCarsCrown + beforeCarsCrown_afterCars + beforeNextTrial_afterWhite)
                 perform(#selector(performStudy), with: nil, afterDelay: beforeWhite_afterCarsCrown + beforeCarsCrown_afterCars + beforeNextTrial_afterWhite)
-            } else if timingType == 12 {    // Participant can press Next to continue
+            } else if timingType == 2 {    // Participant can press Next to continue
                 perform(#selector(clearScreen), with: nil, afterDelay: 0)
                 perform(#selector(showCars), with: nil, afterDelay: 0.5)
                 perform(#selector(showCrown), with: nil, afterDelay: 1.0)

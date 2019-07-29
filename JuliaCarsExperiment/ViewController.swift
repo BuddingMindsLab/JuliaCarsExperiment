@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var carsField: UITextField!
     @IBOutlet weak var carsCrownField: UITextField!
     @IBOutlet weak var trialGapField: UITextField!
+    @IBOutlet weak var maxStimuli: UITextField!
     
     // @IBOutlet weak var picker: UIPickerView!
     let groups = ["group10", "group1", "group2", "group3", "group4", "group5", "group6", "group7", "group8", "group9"]
@@ -116,7 +117,9 @@ class ViewController: UIViewController {
         if self.btnDelayField.text != nil && self.btnDelayField.text != ""{
             vc?.buttonDelayAfterCrown = Double(self.btnDelayField.text!)!
         }
-        
+        if self.maxStimuli.text != nil && self.maxStimuli.text != "" {
+            vc?.maxStimuli = Int(self.maxStimuli.text!)!
+        }
     }
     
 //    // picker methods
